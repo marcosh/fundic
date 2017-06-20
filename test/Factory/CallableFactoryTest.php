@@ -27,6 +27,6 @@ final class CallableFactoryTest extends TestCase
 
         $factory = new CallableFactory($callable);
 
-        self::assertSame($callable(), $factory(Container::create()));
+        self::assertSame($callable(), $factory(Container::create(), ''));
     }
 }

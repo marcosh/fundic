@@ -36,8 +36,8 @@ final class Container implements ContainerInterface
         $container = $this;
 
         return $maybeFactory->map(
-            function(ValueFactory $factory) use ($container) {
-                return $factory($container);
+            function(ValueFactory $factory) use ($container, $id) {
+                return $factory($container, $id);
             }
         );
     }

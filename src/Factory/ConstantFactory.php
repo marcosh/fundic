@@ -15,7 +15,7 @@ final class ConstantFactory implements ValueFactory
         $this->value = $value;
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container, string $name)
     {
         return $this->value;
     }

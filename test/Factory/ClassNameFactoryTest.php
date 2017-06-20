@@ -14,6 +14,6 @@ final class ClassNameFactoryTest extends TestCase
     {
         $factory = new ClassNameFactory(\stdClass::class);
 
-        self::assertInstanceOf(\stdClass::class, $factory(Container::create()));
+        self::assertInstanceOf(\stdClass::class, $factory(Container::create(), ''));
     }
 }

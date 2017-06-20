@@ -31,7 +31,7 @@ final class ContainerTest extends TestCase
         $container->add(
             'gigi',
             new class() implements ValueFactory {
-                public function __invoke(ContainerInterface $container) {}
+                public function __invoke(ContainerInterface $container, string $name) {}
             }
         );
 
@@ -53,7 +53,7 @@ final class ContainerTest extends TestCase
             'gigi',
             new class() implements ValueFactory
             {
-                public function __invoke(ContainerInterface $container)
+                public function __invoke(ContainerInterface $container, string $name)
                 {
                     return 73;
                 }
@@ -78,7 +78,7 @@ final class ContainerTest extends TestCase
             'gigi',
             new class() implements ValueFactory
             {
-                public function __invoke(ContainerInterface $container)
+                public function __invoke(ContainerInterface $container, string $name)
                 {
                     return 73;
                 }

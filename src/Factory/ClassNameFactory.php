@@ -18,7 +18,7 @@ final class ClassNameFactory implements ValueFactory
         $this->className = $className;
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container, string $name)
     {
         return new $this->className;
     }

@@ -11,5 +11,5 @@ interface ValueFactory
     /**
      * @return mixed
      */
-    public function __invoke(ContainerInterface $container);
+    public function __invoke(ContainerInterface $container, string $name);
 }

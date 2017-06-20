@@ -26,10 +26,10 @@ final class Memoize implements ValueFactory
         $this->inner = $inner;
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container, string $name)
     {
         if (!$this->alreadyComputed) {
-            $this->result = ($this->inner)($container);
+            $this->result = ($this->inner)($container, $name);
             $this->alreadyComputed = true;
         }
 

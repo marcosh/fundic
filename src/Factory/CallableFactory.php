@@ -18,7 +18,7 @@ final class CallableFactory implements ValueFactory
         $this->callableFactory = $callableFactory;
     }
 
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container, string $name)
     {
         return ($this->callableFactory)($container);
     }

@@ -18,7 +18,7 @@ final class MemoizeTest extends TestCase
         {
             private $i = 0;
 
-            public function __invoke(ContainerInterface $container)
+            public function __invoke(ContainerInterface $container, string $name)
             {
                 $this->i = $this->i +1;
                 return $this->i;
@@ -26,6 +26,6 @@ final class MemoizeTest extends TestCase
         };
         $factory = new Memoize($inner);
 
-        self::assertSame($factory(Container::create()), $factory(Container::create()));
+        self::assertSame($factory(Container::create(), ''), $factory(Container::create(), ''));
     }
 }
