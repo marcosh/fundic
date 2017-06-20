@@ -15,7 +15,16 @@
             "Fundic\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "FundicTest\\": "test/"
+        }
+    },
     "require-dev": {
-        "phpunit/phpunit": "^6.2"
+        "phpunit/phpunit": "^6.2",
+        "ocramius/proxy-manager": "^2.1"
+    },
+    "suggest": {
+        "ocramius/proxy-manager": "Allows you to use the Proxy factory decorator"
     }
 }
