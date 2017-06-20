@@ -10,10 +10,17 @@ use PHPUnit\Framework\TestCase;
 
 final class ClassNameFactoryTest extends TestCase
 {
-    public function testInvokingCreatesObjectOfCorrectClass()
+    public function testInvokingCreatesObjectOfClassPassedInConstructor()
     {
         $factory = new ClassNameFactory(\stdClass::class);
 
         self::assertInstanceOf(\stdClass::class, $factory(Container::create(), ''));
+    }
+
+    public function testInvokingCreatesObjectsOfNameClass()
+    {
+        $factory = new ClassNameFactory();
+
+        self::assertInstanceOf(\stdClass::class, $factory(Container::create(), \stdClass::class));
     }
 }

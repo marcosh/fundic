@@ -9,17 +9,19 @@ use Psr\Container\ContainerInterface;
 final class ClassNameFactory implements ValueFactory
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $className;
 
-    public function __construct(string $className)
+    public function __construct(?string $className = null)
     {
         $this->className = $className;
     }
 
     public function __invoke(ContainerInterface $container, string $name)
     {
-        return new $this->className;
+        $className = $this->className ?? $name;
+
+        return new $className;
     }
 }
