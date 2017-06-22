@@ -34,7 +34,7 @@ final class Proxy implements ValueFactory
         $inner = $this->inner;
 
         $proxyFactory = new LazyLoadingValueHolderFactory();
-        $initializer = function (
+        $initializer = function(
             & $wrappedObject,
             LazyLoadingInterface $proxy
         ) use ($container, $inner, $name) {
