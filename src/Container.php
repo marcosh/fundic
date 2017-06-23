@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Fundic;
 
 use Fundic\DataStructure\Dictionary;
-use Fundic\DataStructure\Maybe;
+use Fundic\DataStructure\Maybe\Just;
+use Fundic\DataStructure\Maybe\Nothing;
+use Fundic\DataStructure\Result\Result;
 use Fundic\Factory\ValueFactory;
 use Psr\Container\ContainerInterface;
 
@@ -27,19 +29,29 @@ final class Container implements ContainerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Finds an entry of the container by its identifier and returns it.
+     *
+     * @param string $id Identifier of the entry to look for.
+     *
+     * @return mixed Result.
      */
-    public function get($id) : Maybe
+    public function get($id) : Result
     {
         $maybeFactory = $this->values->get($id);
 
         $container = $this;
 
-        return $maybeFactory->map(
-            function(ValueFactory $factory) use ($container, $id) {
-                return $factory($container, $id);
+        try {
+            switch (true) {
+                case ($maybeFactory instanceof Just):
+                    /** @var Just $maybeFactory */
+                    return Result::just(($maybeFactory->get())($container, $id));
+                case ($maybeFactory instanceof Nothing):
+                    return Result::notFound();
             }
-        );
+        } catch (\Throwable $e) {
+            return Result::exception($e);
+        }
     }
 
     /**

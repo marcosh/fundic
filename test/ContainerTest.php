@@ -6,7 +6,8 @@ namespace FundicTest;
 
 use Fundic\Container;
 use Fundic\DataStructure\Dictionary;
-use Fundic\DataStructure\Maybe;
+use Fundic\DataStructure\Maybe\Maybe;
+use Fundic\DataStructure\Result\Result;
 use Fundic\Factory\ValueFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -63,11 +64,11 @@ final class ContainerTest extends TestCase
         self::assertTrue($container->has('gigi'));
     }
 
-    public function testGetReturnsNothingOnMissingKey(): void
+    public function testGetReturnsNotFoundOnMissingKey(): void
     {
         $container = Container::create();
 
-        self::assertEquals(Maybe::nothing(), $container->get('gigi'));
+        self::assertEquals(Result::notFound(), $container->get('gigi'));
     }
 
     public function testGetReturnsJustTheValueOnPresentKey() : void
@@ -85,6 +86,33 @@ final class ContainerTest extends TestCase
             }
         );
 
-        self::assertEquals(Maybe::just(73), $container->get('gigi'));
+        self::assertEquals(Result::just(73), $container->get('gigi'));
+    }
+
+    public function testGetReturnsExceptionOnError() : void
+    {
+        $container = Container::create();
+
+        $exception = new \Exception();
+
+        $container = $container->add(
+            'gigi',
+            new class($exception) implements ValueFactory
+            {
+                private $exception;
+
+                public function __construct(\Exception $exception)
+                {
+                    $this->exception = $exception;
+                }
+
+                public function __invoke(ContainerInterface $container, string $name)
+                {
+                    throw $this->exception;
+                }
+            }
+        );
+
+        self::assertEquals(Result::exception($exception), $container->get('gigi'));
     }
 }
