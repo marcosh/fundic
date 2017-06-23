@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fundic\DataStructure;
 
+use Fundic\DataStructure\Maybe\Maybe;
+
 final class Dictionary
 {
     private $values = [];

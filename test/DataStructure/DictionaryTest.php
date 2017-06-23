@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FundicTest\DataStructure;
 
 use Fundic\DataStructure\Dictionary;
-use Fundic\DataStructure\Maybe;
+use Fundic\DataStructure\Maybe\Maybe;
 use PHPUnit\Framework\TestCase;
 
 final class DictionaryTest extends TestCase

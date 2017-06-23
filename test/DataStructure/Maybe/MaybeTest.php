@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace FundicTest\DataStructure;
 
-use Fundic\DataStructure\Just;
-use Fundic\DataStructure\Maybe;
-use Fundic\DataStructure\Nothing;
+use Fundic\DataStructure\Maybe\Just;
+use Fundic\DataStructure\Maybe\Maybe;
+use Fundic\DataStructure\Maybe\Nothing;
 use PHPUnit\Framework\TestCase;
 
 final class MaybeTest extends TestCase
@@ -32,19 +32,5 @@ final class MaybeTest extends TestCase
         $just = Maybe::just(73);
 
         self::assertSame(73, $just->get());
-    }
-
-    public function testMapOnNothing() : void
-    {
-        $nothing = Maybe::nothing();
-
-        self::assertEquals(Maybe::nothing(), $nothing->map(function ($x) {return $x+1;}));
-    }
-
-    public function testMapOnJust() : void
-    {
-        $just = Maybe::just(73);
-
-        self::assertEquals(Maybe::just(74), $just->map(function ($x) {return $x+1;}));
     }
 }

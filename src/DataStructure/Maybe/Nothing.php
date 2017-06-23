@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fundic\DataStructure;
+namespace Fundic\DataStructure\Maybe;
 
 interface Nothing
 {
