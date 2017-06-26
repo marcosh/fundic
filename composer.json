@@ -27,5 +27,8 @@
     },
     "suggest": {
         "ocramius/proxy-manager": "Allows you to use the Proxy factory decorator"
+    },
+    "provide": {
+        "psr/container-implementation": "^1.0"
     }
 }
