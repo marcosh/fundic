@@ -9,7 +9,6 @@ use Fundic\DataStructure\Maybe\Just;
 use Fundic\DataStructure\Maybe\Nothing;
 use Fundic\DataStructure\Result\Result;
 use Fundic\Factory\ValueFactory;
-use Psr\Container\ContainerInterface;
 
 final class Container implements ContainerInterface
 {
@@ -62,7 +61,7 @@ final class Container implements ContainerInterface
         return $this->values->has($id);
     }
 
-    public function add(string $id, ValueFactory $factory) : self
+    public function add(string $id, ValueFactory $factory) : ContainerInterface
     {
         return new self($this->values->add($id, $factory));
     }

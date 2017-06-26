@@ -65,7 +65,7 @@ final class ExceptionContainer implements ContainerInterface
         return $this->container->has($id);
     }
 
-    public function add(string $id, ValueFactory $factory): self
+    public function add(string $id, ValueFactory $factory): ContainerInterface
     {
         return new self($this->container->add($id, $factory));
     }
