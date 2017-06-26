@@ -12,7 +12,7 @@ final class ContainerException extends \RuntimeException implements ExceptionInt
     public static function forKeyWithInner(string $id, Throwable $inner)
     {
         return new self(
-            sprintf('Error while retrieving the entry with &s identifier'),
+            sprintf('Error while retrieving the entry with %s identifier', $id),
             0,
             $inner
         );
