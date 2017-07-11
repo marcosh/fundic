@@ -9,7 +9,6 @@ use Fundic\DataStructure\Maybe\Just;
 use Fundic\DataStructure\Maybe\Nothing;
 use Fundic\DataStructure\Result\Result;
 use Fundic\Factory\ValueFactory;
-use Psr\Container\ContainerInterface;
 
 final class TypedContainer implements Container
 {
