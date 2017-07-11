@@ -6,5 +6,4 @@ namespace Fundic\DataStructure\Result;
 
 interface NotFound
 {
-
 }
