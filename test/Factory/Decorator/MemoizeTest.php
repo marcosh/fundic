@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace FundicTest\Factory\Decorator;
 
-use Fundic\TypedContainer;
 use Fundic\Factory\Decorator\Memoize;
 use Fundic\Factory\ValueFactory;
+use Fundic\TypedContainer;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 

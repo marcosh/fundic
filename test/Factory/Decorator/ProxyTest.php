@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace FundicTest\Factory\Decorator;
 
-use Fundic\TypedContainer;
 use Fundic\Factory\Decorator\Proxy;
 use Fundic\Factory\ValueFactory;
+use Fundic\TypedContainer;
 use PHPUnit\Framework\TestCase;
 use ProxyManager\Proxy\VirtualProxyInterface;
 use Psr\Container\ContainerInterface;

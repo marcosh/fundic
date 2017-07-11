@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace FundicTest\Factory;
 
-use Fundic\TypedContainer;
 use Fundic\Factory\CallableFactory;
+use Fundic\TypedContainer;
 use PHPUnit\Framework\TestCase;
 
 final class CallableFactoryTest extends TestCase

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace FundicTest\Factory;
 
-use Fundic\TypedContainer;
 use Fundic\Factory\ConstantFactory;
+use Fundic\TypedContainer;
 use PHPUnit\Framework\TestCase;
 
 final class ConstantFactoryTest extends TestCase
