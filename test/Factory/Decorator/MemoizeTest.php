@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FundicTest\Factory\Decorator;
 
-use Fundic\Container;
+use Fundic\TypedContainer;
 use Fundic\Factory\Decorator\Memoize;
 use Fundic\Factory\ValueFactory;
 use PHPUnit\Framework\TestCase;
@@ -26,6 +26,6 @@ final class MemoizeTest extends TestCase
         };
         $factory = new Memoize($inner);
 
-        self::assertSame($factory(Container::create(), ''), $factory(Container::create(), ''));
+        self::assertSame($factory(TypedContainer::create(), ''), $factory(TypedContainer::create(), ''));
     }
 }

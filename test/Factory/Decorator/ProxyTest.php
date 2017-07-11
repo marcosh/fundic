@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FundicTest\Factory\Decorator;
 
-use Fundic\Container;
+use Fundic\TypedContainer;
 use Fundic\Factory\Decorator\Proxy;
 use Fundic\Factory\ValueFactory;
 use PHPUnit\Framework\TestCase;
@@ -24,7 +24,7 @@ final class ProxyTest extends TestCase
         };
         $factory = new Proxy($inner);
 
-        $object = $factory(Container::create(), Foo::class);
+        $object = $factory(TypedContainer::create(), Foo::class);
 
         self::assertInstanceOf(VirtualProxyInterface::class, $object);
         self::assertInstanceOf(Foo::class, $object);
@@ -43,7 +43,7 @@ final class ProxyTest extends TestCase
         };
         $factory = new Proxy($inner, Foo::class);
 
-        $object = $factory(Container::create(), '');
+        $object = $factory(TypedContainer::create(), '');
 
         self::assertInstanceOf(VirtualProxyInterface::class, $object);
         self::assertInstanceOf(Foo::class, $object);

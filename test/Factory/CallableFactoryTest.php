@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FundicTest\Factory;
 
-use Fundic\Container;
+use Fundic\TypedContainer;
 use Fundic\Factory\CallableFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -27,6 +27,6 @@ final class CallableFactoryTest extends TestCase
 
         $factory = new CallableFactory($callable);
 
-        self::assertSame($callable(), $factory(Container::create(), ''));
+        self::assertSame($callable(), $factory(TypedContainer::create(), ''));
     }
 }

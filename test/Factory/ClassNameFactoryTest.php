@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FundicTest\Factory;
 
-use Fundic\Container;
+use Fundic\TypedContainer;
 use Fundic\Factory\ClassNameFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -14,13 +14,13 @@ final class ClassNameFactoryTest extends TestCase
     {
         $factory = new ClassNameFactory(\stdClass::class);
 
-        self::assertInstanceOf(\stdClass::class, $factory(Container::create(), ''));
+        self::assertInstanceOf(\stdClass::class, $factory(TypedContainer::create(), ''));
     }
 
     public function testInvokingCreatesObjectsOfNameClass()
     {
         $factory = new ClassNameFactory();
 
-        self::assertInstanceOf(\stdClass::class, $factory(Container::create(), \stdClass::class));
+        self::assertInstanceOf(\stdClass::class, $factory(TypedContainer::create(), \stdClass::class));
     }
 }
