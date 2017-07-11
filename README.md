@@ -16,16 +16,24 @@ Add `fundic` as a dependency to your project using [Composer](https://getcompose
 composer require marcosh/fundic
 ```
 
+## Tests
+
+Run the tests using
+
+```bash
+php vendor\bin\phpunit
+```
+
 ## Theory
 
 In its essence a dependency injection container is just a component which is able, from a key, to
 retrieve a corresponding working object.
 
-In other words, it is a map that associates to a key a factory to build the object identified with
+In other words, it is a map that associates to a key a factory which builds the object identified by
 the key, possibly using recursively the container itself.
 
 `fundic` takes this idea to its core and, in fact, if you look at the essence, it is just a map
-that associates to keys factories of the form
+that associates keys to factories of the form
 
 ```php
 interface ValueFactory
@@ -41,10 +49,15 @@ interface ValueFactory
 
 ### Instantiate
 
-The basic class of `fundic` is `Fundic\Container`. You can create a new instance of it just by calling
+Actually `fundic` gives you two containers:
+
+- `Psr11Container` which implements the specifications of [PSR-11](https://github.com/container-interop/fig-standards/blob/master/proposed/container.md);
+- `TypedContainer`, a more type safe version
+
+You can create a new instance of them just by calling their static method `create`:
 
 ```php
-$container = Fundic\Container::create();
+$container = TypedContainer::create();
 ```
 
 This will create an empty instance of the container that you can fill as you like.
@@ -64,13 +77,14 @@ really important that you remember to assign its result to a variable.
 
 ### Retrieve
 
-`fundic` implements
-[`Psr\Container\ContainerInterface`](https://github.com/php-fig/container/blob/master/src/ContainerInterface.php),
-therefore you can query it using the `set` and `has` methods as follows
+Both `Psr11Container` and `TypedContainer` implement
+[`Psr\Container\ContainerInterface`](https://github.com/php-fig/container/blob/master/src/ContainerInterface.php)
+(even if `TypedContainer` is just respection the signature of the methods and not conforming to the annotations),
+therefore you can query them using the `set` and `has` methods as follows
 
 ```php
 // create a new empty container
-$container = Fundic\Container::create();
+$container = Psr11Container::create();
 
 // instructs the container on how to build the object
 // associated with the provided key
@@ -81,9 +95,16 @@ $container->has('foo'); // returns true
 $object = $container->get('foo'); // retrieves the object associated to the key
 ```
 
-## Container return values
+## Container return values and exceptions
 
-`Fundic\Container` alone does not totally conform to the specifications of
+`Psr11Container` works as a standard container and conforms completely to the specifications of
+[PSR-11](https://github.com/container-interop/fig-standards/blob/master/proposed/container.md).
+Hence, the result of any call to the `get` method is the expected object.
+
+`Psr11Container::get` also throws exceptions if a key is not found or if there is an error while
+building the return value.
+
+On the other hand, `TypedContainer` alone does not totally conform to the specifications of
 [PSR-11](https://github.com/container-interop/fig-standards/blob/master/proposed/container.md),
 specifically in the return values of `get` and the handling of the exceptions.
 
@@ -98,18 +119,9 @@ have the following values:
 These above are just values and you could do whatever you want with them (immediately react to them,
 pass them around, etc ...)
 
-### Exceptions
-
-If you prefer to use exceptions as usual or if you need complete compatibility with
-[PSR-11](https://github.com/container-interop/fig-standards/blob/master/proposed/container.md),
-you could decorate `Fundic\Container` with `Fundic\Decorator\ExceptionContainer`.
-
-This class will do two things. It will throw exceptions instead of returning `NotFound` and `Exception`
-values. Moreover, if a `Just` is returned from the `Container`, it will extract the inner value.
-
 ## Factories
 
-Some factories are provided to ease the creation of the need `Fundic\Factory\ValueFactory` instances.
+Some factories are provided to ease the creation of `Fundic\Factory\ValueFactory` instances.
 
 It goes without saying that you could provide your own ad-hoc implementations of `Fundic\Factory\ValueFactory`.
 
@@ -160,10 +172,10 @@ $container->get(Foo::class);
 
 ## Factory decorators
 
-Sometimes you want to modify how a specific key is built and retrieved from the container without toughing
+Sometimes you want to modify how a specific key is built and retrieved from the container without touching
 the provided factory.
 
-An easy mechanism to allow this possibility is to use again the decorator pattern. This means that we wrap
+An easy mechanism to allow this possibility is to use the decorator pattern. This means that we wrap
 our factory with with another factory which receives the first factory as a constructor argument.
 In functional terms, suppose we have a factory `f` for a specific `foo` key
 (i.e. `f : (ContainerInterface, string) -> foo`); what we do is passing the whole `f` to `g` where
