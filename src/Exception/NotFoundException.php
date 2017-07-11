@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fundic\Decorator\Exception;
+namespace Fundic\Exception;
 
 use Psr\Container\NotFoundExceptionInterface;
 
