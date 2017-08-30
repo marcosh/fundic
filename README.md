@@ -1,5 +1,6 @@
 # Fundic
 
+[![Latest Stable Version](https://poser.pugx.org/marcosh/fundic/version)](https://packagist.org/packages/marcosh/fundic)
 [![Build Status](https://travis-ci.org/marcosh/fundic.svg?branch=master)](https://travis-ci.org/marcosh/fundic)
 [![Code Climate](https://codeclimate.com/github/marcosh/fundic/badges/gpa.svg)](https://codeclimate.com/github/marcosh/fundic)
 [![Coverage Status](https://coveralls.io/repos/github/marcosh/fundic/badge.svg?branch=master)](https://coveralls.io/github/marcosh/fundic?branch=master)
