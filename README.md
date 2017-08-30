@@ -29,8 +29,11 @@ php vendor\bin\phpunit
 In its essence a dependency injection container is just a component which is able, from a key, to
 retrieve a corresponding working object.
 
-In other words, it is a map that associates to a key a factory which builds the object identified by
-the key, possibly using recursively the container itself.
+A common approach to do this is to configure how the corresponding object should be contructed or even
+relay on autowiring based on class naming.
+
+Another approach si to see a dependency injection container as a map that associates to a key a factory
+which builds the object identified by the key, possibly using recursively the container itself.
 
 `fundic` takes this idea to its core and, in fact, if you look at the essence, it is just a map
 that associates keys to factories of the form
@@ -79,7 +82,7 @@ really important that you remember to assign its result to a variable.
 
 Both `Psr11Container` and `TypedContainer` implement
 [`Psr\Container\ContainerInterface`](https://github.com/php-fig/container/blob/master/src/ContainerInterface.php)
-(even if `TypedContainer` is just respection the signature of the methods and not conforming to the annotations),
+(even if `TypedContainer` is just respecting the signature of the methods and not conforming to the annotations),
 therefore you can query them using the `set` and `has` methods as follows
 
 ```php
@@ -176,7 +179,7 @@ Sometimes you want to modify how a specific key is built and retrieved from the 
 the provided factory.
 
 An easy mechanism to allow this possibility is to use the decorator pattern. This means that we wrap
-our factory with with another factory which receives the first factory as a constructor argument.
+our factory with another factory which receives the first factory as a constructor argument.
 In functional terms, suppose we have a factory `f` for a specific `foo` key
 (i.e. `f : (ContainerInterface, string) -> foo`); what we do is passing the whole `f` to `g` where
 `g(f) : (ContainerInterface, string) -> foo`.
@@ -192,7 +195,7 @@ Some decorators of common use are provided by the library.
 ### Memoize
 
 If you want to retrieve the same instance of an object every time you ask a particular key to the container,
-you need to store the result obtained the first time, store it somewhere and the return that instead of creating
+you need to store the result obtained the first time somewhere and the return that instead of creating
 a new instance every time.
 
 This is exactly what the `Memoize` decorator does. The first time it calls the inner factory to build the object,
@@ -209,7 +212,7 @@ $container->get(Foo::class); // the same instance of Foo is returned
 
 ### Proxy
 
-If the building process of a object is particularly onerous, you could desire to postpone it until the very last
+If the building process of a object is particularly heavy, you could desire to postpone it until the very last
 moment when you are sure you need an instance of that particular object.
 
 To do this you could proxy your object and initially return a wrapper that will build the actual object only
@@ -218,7 +221,7 @@ once a method is called on it.
 You could do this using the `Proxy` decorator, as follows:
 
 ```php
-class Foo { ... } // class which is haeavy to build
+class Foo { ... } // class which is heavy to build
 
 $container->add(Foo::class, new Proxy(new ClassNameFactory(Foo::class)));
 
