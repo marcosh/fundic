@@ -14,6 +14,9 @@ final class Memoize implements ValueFactory
      */
     private $inner;
 
+    /**
+     * @var mixed
+     */
     private $result;
 
     /**
